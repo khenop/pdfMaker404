@@ -105,7 +105,7 @@ def readyTo(link):
             url1 = url+spl2[0]+"jpg"
         else:
             url1 = url+spl2[0]+"JPG"
-        print(url1)
+        #print(url1)
         getImage(url1,str(i)+".JPG")
 
     sortImg("pdfimg")
