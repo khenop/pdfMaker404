@@ -1,9 +1,7 @@
 import urllib.request as ul
-
 from os import path
-
 from fpdf import FPDF
-
+import re
 import os
 
 judul = ""
@@ -36,7 +34,7 @@ def getImage(link,i):
 
     if not path.exists(imgdir):
 
-        get = ul.urlretrieve(link,imgdir)
+        get = ul.urlretrieve(link.replace(" ","%20"),imgdir)
 
 def sortImg(path):
 
@@ -102,10 +100,12 @@ def readyTo(link):
 
             continue
 
-        spl2 = spl1[i].split("JPG")
-
-        url1 = url+spl2[0]+"JPG"
-
+        spl2 = re.split("JPG",spl1[i],flags=re.IGNORECASE)
+        if opt == 5:
+            url1 = url+spl2[0]+"jpg"
+        else:
+            url1 = url+spl2[0]+"JPG"
+        print(url1)
         getImage(url1,str(i)+".JPG")
 
     sortImg("pdfimg")
@@ -123,6 +123,7 @@ if __name__ == '__main__':
     print("3. Pengolahan data")
 
     print("4. Dasar machine learning")
+    print("5. Restfull api laravel")
 
     print("")
 
@@ -135,52 +136,41 @@ if __name__ == '__main__':
     link2 = "https://raw.githubusercontent.com/khenop/pdfMaker404/master/source2.txt"
 
     link3 = "https://raw.githubusercontent.com/khenop/pdfMaker404/master/source3.txt"
+    link4 = "https://raw.githubusercontent.com/khenop/pdfMaker404/master/source4.txt"
 
     if opt == 2:
-
         print("Waiting to make pdf")
-
         judul = "Bekerja dengan Python"
-
         readyTo(link1)
-
         print("pdf generate success as: "+judul+".pdf")
 
     elif opt == 3:
-
         judul = "Pengolahan data"
-
         readyTo(link2)
-
         print("pdf generate success as: "+judul+".pdf")
 
     elif opt == 4:
-
         judul = "Dasar machine learning"
-
         readyTo(link3)
+        print("pdf generate success as: "+judul+".pdf")
 
+    elif opt == 5:
+        judul = "Restful API Laravel"
+        readyTo(link4)
         print("pdf generate success as: "+judul+".pdf")
 
     else:
-
         print("Waiting to make pdf")
-
         judul = "Bekerja dengan Python"
-
         readyTo(link1)
-
         print("pdf generate success as: "+judul+".pdf")
-
         judul = "Pengolahan data"
-
         readyTo(link2)
-
         print("pdf generate success as: "+judul+".pdf")
-
         judul = "Dasar Machine learning"
-
         readyTo(link3)
-
+        print("pdf generate success as: "+judul+".pdf")
+        judul = "Restful API Laravel"
+        readyTo(link4)
         print("pdf generate success as: "+judul+".pdf")
 
